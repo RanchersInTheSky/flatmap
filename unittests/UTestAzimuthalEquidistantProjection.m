@@ -10,8 +10,8 @@ classdef UTestAzimuthalEquidistantProjection < UTestMapProjections
     end
     
     properties
-        projection = @flatmap.project.geo2azimuthalEquidistant;
-        inverseProjection = @flatmap.project.azimuthalEquidistant2geo;
+        projection = @flatmap.project.azimuthalEquidistant;
+        inverseProjection = @flatmap.project.azimuthalEquidistantInv;
         projectionParameters = {0, 0, 1};
         
         projAbsTol = 5e-5;

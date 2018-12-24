@@ -1,4 +1,4 @@
-function [ lat_deg, lon_deg ] = azimuthalEquidistant2geo( x, y, lat0_deg, lon0_deg, bodyRadius )
+function [ lat_deg, lon_deg ] = azimuthalEquidistantInv( x, y, lat0_deg, lon0_deg, bodyRadius )
     % Reference: Snyder, John P. (1987). Azimuthal Equidistant projection.
     % Map Projects: A Working Manual (pp.195-197). U.S. Geological Survey
     % Professional Paper 1395.

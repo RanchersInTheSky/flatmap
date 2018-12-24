@@ -8,8 +8,8 @@ classdef UTestMercatorProjection < UTestMapProjections
     end
     
     properties
-        projection = @flatmap.project.geo2mercator;
-        inverseProjection = @flatmap.project.mercator2geo;
+        projection = @flatmap.project.mercator;
+        inverseProjection = @flatmap.project.mercatorInv;
         projectionParameters = {0, 180/pi};
         
         projAbsTol

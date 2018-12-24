@@ -1,4 +1,4 @@
-function [x, y] = geo2mercator(lat_deg, lon_deg, lon0_deg, bodyRadius)
+function [x, y] = mercator(lat_deg, lon_deg, lon0_deg, bodyRadius)
     lat  = lat_deg * pi/180;
     lon  = lon_deg * pi/180;
     lon0 = lon0_deg * pi/180;

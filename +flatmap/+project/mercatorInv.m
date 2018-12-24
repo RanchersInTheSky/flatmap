@@ -1,4 +1,4 @@
-function [ lat_deg, lon_deg ] = mercator2geo( x, y, lon0_deg, bodyRadius )
+function [ lat_deg, lon_deg ] = mercatorInv( x, y, lon0_deg, bodyRadius )
     lon0 = lon0_deg * pi/180;
     
     lon = lon0 + x/bodyRadius;
