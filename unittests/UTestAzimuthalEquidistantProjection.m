@@ -15,10 +15,10 @@ classdef UTestAzimuthalEquidistantProjection < UTestMapProjections
         projectionParameters = {0, 0, 1};
         
         projAbsTol = 5e-5;
-        projRelTol
+        projRelTol = 1e-4;
         
-        geodAbsTol = 9e-4;
-        geodRelTol
+        invProjAbsTol = 9e-4;
+        invProjRelTol = 1e-4;
     end
     
 end

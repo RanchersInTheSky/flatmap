@@ -15,8 +15,8 @@ classdef UTestMercatorProjection < UTestMapProjections
         projAbsTol
         projRelTol
         
-        geodAbsTol
-        geodRelTol
+        invProjAbsTol
+        invProjRelTol
     end
     
 end
