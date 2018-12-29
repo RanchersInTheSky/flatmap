@@ -3,7 +3,7 @@ function [ varargout ] = plot( varargin )
     if nargout <= 1
         varargout = cell(1, nargout);
     else
-        error('flatmap.plot:NumOutput', 'flatmap.plot only supports zero or one output');
+        error('flatmap:plot:NumOutput', 'flatmap.plot only supports zero or one output');
     end
 
     % Check if first argument is an axes handle
@@ -11,7 +11,7 @@ function [ varargout ] = plot( varargin )
         axesHandle = varargin{1};
         varargin = varargin(2:end);
     else
-        axesHandle = gca;
+        axesHandle = gca();
     end
     
     % Find the 'MapProjection' option
@@ -46,7 +46,11 @@ function [ varargout ] = plot( varargin )
     axesProjectionParams = getappdata(axesHandle, 'gaeaFlatmapProjectionParams');
     if ~isa(axesProjection, 'flatmap.Projections') || ~isempty(inputProjection)
         axesProjection = inputProjection;
-        axesProjectionParams = axesProjection.defaults;
+        if isempty(inputProjection)
+            axesProjectionParams = {};
+        else
+            axesProjectionParams = axesProjection.defaults;
+        end
         setappdata(axesHandle, 'gaeaFlatmapProjection', axesProjection);
     elseif isempty(axesProjectionParams) || ~iscell(axesProjectionParams)
         axesProjectionParams = {};
@@ -55,21 +59,29 @@ function [ varargout ] = plot( varargin )
 
     % Transfor latitude and longitude data
     if ~isempty(axesProjection)
-        for ii = 1:numel(varargin)-1
+        ii = 1;
+        while ii < numel(varargin)
             if isnumeric(varargin{ii}) && isnumeric(varargin{ii+1})
                 [x, y] = axesProjection.transform( varargin{ii}, varargin{ii+1}, ...
                     axesProjectionParams{:} );
                 varargin{ii} = x;
                 varargin{ii+1} = y;
+                ii = ii + 2;
+            else
+                ii = ii + 1;
             end
         end
     else
-        for ii = 1:numel(varargin)-1
+        ii = 1;
+        while ii < numel(varargin)
             if isnumeric(varargin{ii}) && isnumeric(varargin{ii+1})
                 lat_deg = varargin{ii};
                 lon_deg = varargin{ii+1};
                 varargin{ii} = lon_deg;
                 varargin{ii+1} = lat_deg;
+                ii = ii + 2;
+            else
+                ii = ii + 1;
             end
         end
     end
