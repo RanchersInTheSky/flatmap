@@ -1,4 +1,4 @@
-function [ varargout ] = plot( varargin )
+function [ varargout ] = fill( varargin )
     import flatmap.internal.*
     
     % Check for valid number of outputs (0 or 1).
@@ -22,13 +22,13 @@ function [ varargout ] = plot( varargin )
 
     % Transform latitude and longitude data
     varargin = transformInputsToProjection( ...
-        varargin, axesProjection, axesProjectionParams );
+        varargin, axesProjection, axesProjectionParams, 3 );
     
     % plot to axes
     if nargout > 0
-        varargout{1} = plot(axesHandle, varargin{:});
+        varargout{1} = fill(axesHandle, varargin{:});
     else
-        plot(axesHandle, varargin{:});
+        fill(axesHandle, varargin{:});
     end
 end
 
