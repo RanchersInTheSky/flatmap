@@ -10,7 +10,12 @@ function [ varargout ] = axes( varargin )
     
     [ inputProjection, varargin ] = extractMapProjectionFromInputs( varargin );
     
-    axesHandle = axes( varargin{:} );
+    if ~isempty( varargin ) && ishandle( varargin{1} )
+        axes( varargin{:} );
+        axesHandle = gca();
+    else
+        axesHandle = axes( varargin{:} );
+    end
     
     determineAxesProjection( axesHandle, inputProjection );
     

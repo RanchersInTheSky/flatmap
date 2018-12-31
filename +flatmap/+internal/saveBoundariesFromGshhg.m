@@ -5,10 +5,9 @@ function saveBoundariesFromGshhg( gshhgPath )
     crudeBoundaryPath = fullfile(curPath,'gshhg_crude.mat');
     lowBoundaryPath = fullfile(curPath, 'gshhg_low.mat');
     
-    boundaryDataCrude = loadBoundariesFromGshhg( 'crude', gshhgPath );
-    save(crudeBoundaryPath, 'boundaryDataCrude');
-    clear boundaryDataCrude
+    boundaryData = loadBoundariesFromGshhg( 'crude', gshhgPath );
+    save(crudeBoundaryPath, 'boundaryData');
     
-    boundaryDataLow = loadBoundariesFromGshhg( 'low', gshhgPath );
-    save(lowBoundaryPath, 'boundaryDataLow');
+    boundaryData = loadBoundariesFromGshhg( 'low', gshhgPath );
+    save(lowBoundaryPath, 'boundaryData');
 end
