@@ -33,8 +33,8 @@ function [ inputProjection, inputCellArray ] = extractMapProjectionFromInputs( i
                 '''MapProjectionParams'' must have a value that is a cell array of the projection parameters.'); 
         end
         
-        inputCellArray([mapProjectionIndex mapProjectionIndex+1]) = [];
-        inputCellArray([mapProjectionParamsIndex mapProjectionParamsIndex+1]) = [];
+        deleteIndices = [mapProjectionIndex mapProjectionIndex+1 mapProjectionParamsIndex mapProjectionParamsIndex+1];
+        inputCellArray(deleteIndices) = [];
         
         inputProjection = ProjectionSettings(thisProjection, theseParameters);
     end
