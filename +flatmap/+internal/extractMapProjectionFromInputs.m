@@ -1,27 +1,42 @@
 function [ inputProjection, inputCellArray ] = extractMapProjectionFromInputs( inputCellArray )
+    import flatmap.internal.*
     % Find the 'MapProjection' option
     mapProjectionIndex = find(strcmpi('MapProjection', inputCellArray), 1);
+    mapProjectionParamsIndex = find(strcmpi('MapProjectionParams', inputCellArray), 1);
     if isempty(mapProjectionIndex)
-        inputProjection = flatmap.Projections.empty();
+        inputProjection = ProjectionSettings();
     else
-        inputProjection = inputCellArray{mapProjectionIndex+1};
-        if ischar(inputProjection)
+        thisProjection = inputCellArray{mapProjectionIndex+1};
+        if ischar(thisProjection)
             try
-                inputProjection = flatmap.Projections(inputProjection);
+                thisProjection = ...
+                    flatmap.Projections(thisProjection);
             catch err
                 if strcmp(err.identifier, 'MATLAB:class:CannotConvert')
                     error('flatmap:InvalidMapProjection', ...
-                        ['MapProjection parameter ''' inputProjection ''' is not a supported projection.']);
+                        ['MapProjection parameter ''' thisProjection ''' is not a supported projection.']);
                 else
                     rethrow(err)
                 end
             end
-        elseif ~isa(inputProjection, 'flatmap.Projections')
+        elseif ~isa(thisProjection, 'flatmap.Projections')
             error('flatmap:InvalidMapProjection', ...
-                ['MapProjection parameter ''' inputProjection ''' is not a supported projection.']);
+                ['''MapProjection'' parameter ''' thisProjection ''' is not a supported projection.']);
+        end
+        
+        if isempty(mapProjectionParamsIndex)
+            theseParameters = thisProjection.defaults;
+        elseif iscell(inputCellArray{mapProjectionParamsIndex+1})
+            theseParameters = inputCellArray{mapProjectionParamsIndex+1};
+        else
+            error('flatmap:InvalidMapProjectionParams', ...
+                '''MapProjectionParams'' must have a value that is a cell array of the projection parameters.'); 
         end
         
         inputCellArray([mapProjectionIndex mapProjectionIndex+1]) = [];
+        inputCellArray([mapProjectionParamsIndex mapProjectionParamsIndex+1]) = [];
+        
+        inputProjection = ProjectionSettings(thisProjection, theseParameters);
     end
 
 end

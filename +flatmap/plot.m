@@ -18,11 +18,11 @@ function [ varargout ] = plot( varargin )
     
     [ inputProjection, varargin ] = extractMapProjectionFromInputs( varargin );
     
-    [ axesProjection, axesProjectionParams ] = determineAxesProjection( axesHandle, inputProjection );
+    axesProjection = determineAxesProjection( axesHandle, inputProjection );
 
     % Transform latitude and longitude data
     varargin = transformInputsToProjection( ...
-        varargin, axesProjection, axesProjectionParams );
+        varargin, axesProjection );
     
     % plot to axes
     if nargout > 0
@@ -31,4 +31,3 @@ function [ varargout ] = plot( varargin )
         plot(axesHandle, varargin{:});
     end
 end
-
