@@ -7,7 +7,7 @@ function [ axesProjection ] = determineAxesProjection( axesHandle, inputProjecti
     axesProjection = getappdata(axesHandle, 'gaeaFlatmapProjection');
     if ~isa(axesProjection, 'flatmap.internal.ProjectionSettings') || ~isempty(inputProjection.projection)
         axesProjection = inputProjection;
-        cla(axesHandle, 'reset');
+        clearWorldMap(axesHandle);
         setappdata(axesHandle, 'gaeaFlatmapProjection', axesProjection);
         
         if axesProjection.mapOn_l
