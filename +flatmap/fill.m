@@ -21,13 +21,14 @@ function [ varargout ] = fill( varargin )
     axesProjection = determineAxesProjection( axesHandle, inputProjection );
 
     % Transform latitude and longitude data
-    varargin = transformInputsToProjection( ...
+    vararginNew = transformInputsToProjection( ...
         varargin, axesProjection, 3 );
     
     % plot to axes
+    gObj = fill(axesHandle, vararginNew{:});
+    origInputs = struct('function', @flatmap.fill, 'inputArray', {varargin});
+    setappdata(gObj, 'gaeaFlatmapOrigInputs', origInputs);
     if nargout > 0
-        varargout{1} = fill(axesHandle, varargin{:});
-    else
-        fill(axesHandle, varargin{:});
+        varargout{1} = gObj;
     end
 end
