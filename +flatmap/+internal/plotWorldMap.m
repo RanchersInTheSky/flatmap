@@ -18,11 +18,23 @@ function plotWorldMap( axesHandle )
             boundaryData.land(ii).vertices(:,2), boundaryData.land(ii).vertices(:,1), ...
             landColor);
         if ii == 1
-            hold on
+            axesHandle.NextPlot = 'add';
         end
     end
     [landHandles.HandleVisibility] = deal('off');
+    [landHandles.PickableParts] = deal('none');
     axesProjection.mapLandHandles = landHandles;
+    
+    % Draw the border elements
+    borderHandles(numel(boundaryData.borders)) = matlab.graphics.primitive.Line();
+    for ii = 1:numel(boundaryData.borders)
+        borderHandles(ii) =  flatmap.plot(axesHandle, ...
+            boundaryData.borders(ii).vertices(:,2), boundaryData.borders(ii).vertices(:,1), ...
+            'k');
+    end
+    [borderHandles.HandleVisibility] = deal('off');
+    [borderHandles.PickableParts] = deal('none');
+    axesProjection.mapBorderHandles = borderHandles;
     
     % Draw the water elements
     lakeHandles(100) = matlab.graphics.primitive.Patch();
@@ -32,6 +44,7 @@ function plotWorldMap( axesHandle )
             waterColor);
     end
     [lakeHandles.HandleVisibility] = deal('off');
+    [lakeHandles.PickableParts] = deal('none');
     axesProjection.mapLakeHandles = lakeHandles;
     
     % Draw the area river elements
@@ -42,20 +55,12 @@ function plotWorldMap( axesHandle )
             waterColor);
     end
     [areaRiverHandles.HandleVisibility] = deal('off');
+    [areaRiverHandles.PickableParts] = deal('none');
     axesProjection.mapAreaRiverHandles = areaRiverHandles;
-    
-    % Draw the border elements
-    borderHandles(numel(boundaryData.borders)) = matlab.graphics.primitive.Line();
-    for ii = 1:numel(boundaryData.borders)
-        borderHandles(ii) =  flatmap.plot(axesHandle, ...
-            boundaryData.borders(ii).vertices(:,2), boundaryData.borders(ii).vertices(:,1), ...
-            'k');
-    end
-    [borderHandles.HandleVisibility] = deal('off');
-    axesProjection.mapBorderHandles = borderHandles;
     
     axesHandle.Color = waterColor;
     axis equal tight
+    axesHandle.NextPlot = 'replacechildren';
     
     setappdata(axesHandle, 'gaeaFlatmapProjection', axesProjection)
 end
