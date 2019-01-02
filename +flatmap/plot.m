@@ -26,8 +26,6 @@ function [ varargout ] = plot( varargin )
     
     % plot to axes
     gObj = plot(axesHandle, vararginNew{:});
-    origInputs = struct('function', @flatmap.plot, 'inputArray', {varargin});
-    setappdata(gObj, 'gaeaFlatmapOrigInputs', origInputs);
     if nargout > 0
         varargout{1} = gObj;
     end

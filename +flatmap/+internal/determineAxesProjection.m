@@ -8,12 +8,8 @@ function [ axesProjection ] = determineAxesProjection( axesHandle, inputProjecti
     if ~isa(axesProjection, 'flatmap.internal.ProjectionSettings') || ~isempty(inputProjection.projection)
         axesProjection = inputProjection;
         
-        % Get the original inputs for the axes children.
-        axesChildren = axesHandle.Children;
-        for ii = 1:numel(axesChildren)
-            origInputs(ii) = getappdata(axesChildren(ii), 'gaeaFlatmapOrigInputs');
-        end
-        axesChildren.delete()
+        % Delete axes children.
+        axesHandle.Children.delete();
         
         clearWorldMap(axesHandle);
         setappdata(axesHandle, 'gaeaFlatmapProjection', axesProjection);
@@ -25,10 +21,6 @@ function [ axesProjection ] = determineAxesProjection( axesHandle, inputProjecti
         
         if axesProjection.mapOn_l
             plotWorldMap(axesHandle);
-        end
-        
-        for ii = 1:numel(axesChildren)
-            origInputs(ii).function(origInputs(ii).inputArray{:})
         end
     end
 end
