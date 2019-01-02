@@ -25,5 +25,7 @@ function [ lat_deg, lon_deg ] = azimuthalEquidistantInv( x, y, lat0_deg, lon0_de
     % Convert radians to degrees
     lat_deg = lat * 180/pi;
     lon_deg = lon * 180/pi;
+    
+    [lat_deg, lon_deg] = flatmap.internal.confineLatLon(lat_deg, lon_deg);
 end
 

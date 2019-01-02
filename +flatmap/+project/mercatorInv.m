@@ -7,5 +7,7 @@ function [ lat_deg, lon_deg ] = mercatorInv( x, y, lon0_deg, bodyRadius )
     
     lat_deg = lat * 180/pi;
     lon_deg = lon * 180/pi;
+    
+    [lat_deg, lon_deg] = flatmap.internal.confineLatLon(lat_deg, lon_deg);
 end
 
