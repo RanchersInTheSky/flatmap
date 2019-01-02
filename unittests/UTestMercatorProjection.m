@@ -1,10 +1,10 @@
 classdef UTestMercatorProjection < UTestMapProjections
     
     properties ( TestParameter )
-        latitude_deg = {0, 0, 0, 0, 90, -90};
-        longitude_deg = {-180, -90, 0, 90, 0, 0};
-        rectX = {-180, -90, 0, 90, 0, 0};
-        rectY = {0, 0, 0, 0, Inf, -Inf};
+        latitude_deg = {0, 0, 0, 0, 0, 90, -90};
+        longitude_deg = {-179, -90, 0, 90, 180, 0, 0};
+        rectX = {-179, -90, 0, 90, 180, 0, 0};
+        rectY = {0, 0, 0, 0, 0, Inf, -Inf};
     end
     
     properties
