@@ -18,19 +18,44 @@ function [ shapes ] = loadBoundariesFromGshhg( detailLevel, gshhgPath )
     end
 
     thisShapefile = shapefile.load(coastlineFile);
-    landShapes = thisShapefile.shapeData;
+    landShapes(numel(thisShapefile.shapeData),1) = struct(thisShapefile.shapeData);
+    for ii = 1:numel(thisShapefile.shapeData)
+        landShapes(ii) = struct(thisShapefile.shapeData(ii));
+        landShapes(ii).shapeType = char(landShapes(ii).shapeType);
+        landShapes(ii).partType = char(landShapes(ii).partType);
+    end
     
     thisShapefile = shapefile.load(lakesFile);
-    lakeShapes = thisShapefile.shapeData;
+    lakeShapes(numel(thisShapefile.shapeData),1) = struct(thisShapefile.shapeData);
+    for ii = 1:numel(thisShapefile.shapeData)
+        lakeShapes(ii) = struct(thisShapefile.shapeData(ii));
+        lakeShapes(ii).shapeType = char(lakeShapes(ii).shapeType);
+        lakeShapes(ii).partType = char(lakeShapes(ii).partType);
+    end
     
     thisShapefile = shapefile.load(antarcticaFile);
-    antarcticaShapes = thisShapefile.shapeData;
+    antarcticaShapes(numel(thisShapefile.shapeData),1) = struct(thisShapefile.shapeData);
+    for ii = 1:numel(thisShapefile.shapeData)
+        antarcticaShapes(ii) = struct(thisShapefile.shapeData(ii));
+        antarcticaShapes(ii).shapeType = char(antarcticaShapes(ii).shapeType);
+        antarcticaShapes(ii).partType = char(antarcticaShapes(ii).partType);
+    end
     
     thisShapefile = shapefile.load(rivers1File);
-    areaRiverShapes = thisShapefile.shapeData;
+    areaRiverShapes(numel(thisShapefile.shapeData),1) = struct(thisShapefile.shapeData);
+    for ii = 1:numel(thisShapefile.shapeData)
+        areaRiverShapes(ii) = struct(thisShapefile.shapeData(ii));
+        areaRiverShapes(ii).shapeType = char(areaRiverShapes(ii).shapeType);
+        areaRiverShapes(ii).partType = char(areaRiverShapes(ii).partType);
+    end
     
     thisShapefile = shapefile.load(bordersFile);
-    borderShapes = thisShapefile.shapeData;
+    borderShapes(numel(thisShapefile.shapeData),1) = struct(thisShapefile.shapeData);
+    for ii = 1:numel(thisShapefile.shapeData)
+        borderShapes(ii) = struct(thisShapefile.shapeData(ii));
+        borderShapes(ii).shapeType = char(borderShapes(ii).shapeType);
+        borderShapes(ii).partType = char(borderShapes(ii).partType);
+    end
     
     shapes.land = landShapes;
     shapes.lakes = lakeShapes;
